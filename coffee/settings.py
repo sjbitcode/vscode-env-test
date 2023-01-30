@@ -15,18 +15,27 @@ from pathlib import Path
 
 import environ
 
-print(f'🎉 {os.getenv("COLOR")}')
+print("Django settings loading... ⏳")
+print(f'🎨 {os.getenv("COLOR")}')
+print(f'💚💚 {os.getenv("NAME")} likes her coffee {os.getenv("COFFEE")}')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
-    AWS_ACCESS_KEY_ID=(str, 'not-a-real-key'),
     COFFEE=(str, 'some-coffee'),
     NAME=(str, 'some-name'),
 )
 
+print('--- Before environ reads and sets env --- 📭')
 env.read_env(str(BASE_DIR / ".env"))
+print('--- After environ reads and sets env --- 📬')
+
+COFFEE = env('COFFEE')
+NAME = env('NAME')
+
+print(f'💚💚2️⃣ {NAME} likes her coffee {COFFEE}')
+print(f'🎨2️⃣  {os.getenv("COLOR")}')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -38,12 +47,6 @@ SECRET_KEY = 'django-insecure-0n8dtrd-%+ijm2ftb(d3o1%0(aov757^y@rsgl290u&_6zmg(g
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-COFFEE = env('COFFEE')
-NAME = env('NAME')
-
-print(f'💚💚 {COFFEE} {NAME}')
 
 # Application definition
 
